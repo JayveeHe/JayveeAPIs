@@ -13,6 +13,13 @@
 
 
 #### 示例：
+
+**cURL**:
+
+```shell
+curl -X POST -H "Content-type: application/json" -d '{"song_name":"晴天","limit":3}' http://115.28.76.209/api/music
+```
+
 ```json
 {"song_name":"晴天","limit":3}
 ```
