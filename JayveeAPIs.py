@@ -10,8 +10,14 @@ __author__ = 'jayvee'
 app = Flask(__name__)
 
 
+@app.route('/', methods=['GET'])
+def test_service():
+    return 'running'
+
+
 @app.route('/api/textrank', methods=['POST'])
 def api_textrank():
+    api_logger.info('[%s][textrank]request = %s' % (request.remote_addr, request.data.strip()))
     json_data = json.loads(request.data.strip())
     sentences = json_data['sentences']
     topk = int(json_data.get('topk', 5))
@@ -21,7 +27,7 @@ def api_textrank():
 
 @app.route('/api/music', methods=['POST'])
 def api_cloud_music():
-    api_logger
+    api_logger.info('[%s][music]request = %s' % (request.remote_addr, request.data.strip()))
     json_data = json.loads(request.data)
     song_name = json_data['song_name']
     limit = int(json_data.get('limit', 5))
@@ -30,4 +36,4 @@ def api_cloud_music():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3344)
+    app.run(host='0.0.0.0', port=3344, debug=False)

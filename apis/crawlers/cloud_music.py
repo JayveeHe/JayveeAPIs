@@ -15,7 +15,7 @@ def get_searchlist(name, limit=10):
     # s = requests.Session()
     # s.headers.update({'Referer': 'http://music.163.com/'})
     html = requests.post(url='http://music.163.com/api/search/get/web', params=data,
-                 headers={'Referer': 'http://music.163.com/'}).text
+                         headers={'Referer': 'http://music.163.com/'}).text
     # value = urllib.urlencode(data)
     # req = urllib2.Request("http://music.163.com/api/search/get/web")
     # req.add_header("Referer", "http://music.163.com/")
@@ -25,24 +25,19 @@ def get_searchlist(name, limit=10):
     if jsonobj["result"]["songCount"] != 0:
         count = 0
         for obj in jsonobj["result"]["songs"]:
-            name = obj["name"]
+            song_name = obj["name"]
             artistname = obj["artists"][0]["name"]
             albumname = obj["album"]["name"]
             songid = obj["id"]
             details = json.loads(get_songdetails(songid))
             songurl = "http://music.163.com/m/song/%s" % songid
             mp3url = details['songs'][0]['mp3Url']
-            ltemp = [""]
-            ltemp.append(name)
-            ltemp.append("\n")
-            ltemp.append(artistname)
-            ltemp.append("-")
-            ltemp.append(albumname)
-            songtitle = "".join(ltemp)
-            if count == 0:
-                picurl = details["songs"][0]["album"]["picUrl"] + "?param=250y250"
-            else:
-                picurl = details["songs"][0]["album"]["picUrl"] + "?param=50y50"
+            songtitle = '%s\n%s-%s' % (song_name, artistname, albumname)
+            picurl = details["songs"][0]["album"]["picUrl"]
+            # if count == 0:
+            #     picurl = details["songs"][0]["album"]["picUrl"] + "?param=250y250"
+            # else:
+            #     picurl = details["songs"][0]["album"]["picUrl"] + "?param=50y50"
             count += 1
             list.append({'songtitle': songtitle, 'song_name': name, 'artistname': artistname, 'albumname': albumname,
                          'songid': songid,
