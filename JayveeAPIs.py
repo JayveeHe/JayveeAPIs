@@ -10,7 +10,7 @@ __author__ = 'jayvee'
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/api', methods=['GET'])
 def test_service():
     return 'running'
 
