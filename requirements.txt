@@ -1,0 +1,5 @@
+requests
+networkx
+jieba
+flask
+numpy
